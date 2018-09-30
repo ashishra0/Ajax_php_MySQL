@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <title>Ajax</title>
+</head>
+<body>
+  <div class="container">
+    <div class="section">
+      <button id=left-side-1 class="waves-effect waves-light btn">Touch</button>
+    </div>
+    <div class="card-panel teal">
+      <span class="white-text" id="xhr-text"></span>
+    </div>
+  </div>
+  <script>
+    const xhrTest = document.getElementById('xhr-text')
+    document.getElementById('left-side-1').addEventListener('click', loadText);
+    function loadText() {
+      var xhr = new XMLHttpRequest();
+      console.log("READYSTATE: ", xhr.readyState); // ready state: 0
+      xhr.open('GET', 'hello.txt', true);
+      console.log("READYSTATE: ", xhr.readyState); // ready state: 1
+      xhr.onload = function() {
+        console.log("READYSTATE: ", xhr.readyState); // ready state: 4
+        console.log(this);
+        if (this.status == 200) {
+          xhrTest.innerHTML = this.responseText;
+        } else {
+          xhrTest.innerHTML = "Error";
+        }
+      }
+      xhr.send();
+    }
+    // readyState Values
+    // 0: request not initialized
+    // 1: server connection estabhlished
+    // 2: request received
+    // 3: processing request
+    // 4: request finished and response is ready
+  </script>
+  </body>
+</html>
